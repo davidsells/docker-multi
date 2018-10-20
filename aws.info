@@ -1,0 +1,5 @@
+DB
+name multi-docker-postgres
+user postgres
+pass POSTGRES_PASSWORD
+db   fibvalues

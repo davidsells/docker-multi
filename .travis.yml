@@ -14,13 +14,21 @@ after_success:
   - docker build -t davidsells/multi-nginx ./nginx
   - docker build -t davidsells/multi-server ./server
   - docker build -t davidsells/multi-worker ./worker
-  - echo "Logining In."
-  - echo $DOCKER_USER
-  - echo "$DOCKER_USER"
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
   - docker push davidsells/multi-client
   - docker push davidsells/multi-nginx
   - docker push davidsells/multi-server
   - docker push davidsells/multi-worker
-          
 
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  env: multiDocker-env
+  bucket-name: elasticbeanstalk-us-east-2-980868483426 
+  bucket-path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
