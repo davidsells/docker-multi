@@ -28,10 +28,12 @@ class Fib extends Component {
     async fetchIndexes() {
         console.log('Getting Indexes');
         const seenIndexes = await axios.get('/api/values/all');
-        console.dir(seenIndexes.data);
-	    if(seenIndexes) {
+	if(seenIndexes) {
+        	console.dir(seenIndexes.data);
         	this.setState({seenIndexes: seenIndexes.data})
-	    }
+	}  else {
+		console.log('Error getting all values.');
+	}
 
     }
 
